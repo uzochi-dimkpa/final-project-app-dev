@@ -42,7 +42,7 @@ function LoginPage() {
     
     axios.post('http://localhost:3010/login', userInfo)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
 
       (res.data.result === true && res.data.result !== 'BAD_USERNAME') ? navigate('/') :
         (res.data.result === 'BAD_USERNAME') ? alert('This user does not exist! Pleas try again with a different username') :
@@ -52,6 +52,7 @@ function LoginPage() {
         window.localStorage.setItem("loggedIn", res.data.result);
         window.localStorage.setItem("username", userInfo.username);
         window.localStorage.setItem("token", res.data.token);
+        window.localStorage.setItem('expiresIn', res.data.expiresIn);
         setLoggedIn(res.data.result);
         setUsername(userInfo.username);
         window.location.reload();

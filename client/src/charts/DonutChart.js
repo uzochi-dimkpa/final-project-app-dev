@@ -12,10 +12,11 @@ let myDoughnutChart;
 function DoughnutChart() {
   const { loggedIn, username} = useContext(SessionContext);
   const { hasBudget, setHasBudget, setDatabase } = useContext(BudgetDisplayContext);
+  const token = window.localStorage.getItem("token");
   
   function createChart(data_source) {
     if (hasBudget) {
-      var ctx = document.getElementById("myChart").getContext("2d");
+      var ctx = document.getElementById("myDonutChart").getContext("2d");
         if (myDoughnutChart) {
           myDoughnutChart.destroy();
         }
@@ -28,24 +29,49 @@ function DoughnutChart() {
   };
 
   function getBudget() {
-  	// console.log('Display budget!');
-  
-  	const db_name = (loggedIn) ? 'personal-budget' : 'guest-budget';
+  	const db_name = (loggedIn && token) ? 'personal-budget' : 'guest-budget';
 
-    axios.post('http://localhost:3010/display',
+    (loggedIn && token) ?
+    axios.get('http://localhost:3010/display-user',
+    {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        database: db_name,
+        username: username
+      }
+    })
+    .then((res) => {
+      // console.log('display-user');
+      // console.log(res.data[0]);
+      if (res.data !== '') {
+        setHasBudget(true);
+        setDatabase(db_name);
+        createChart(res.data[0]);
+      } else {
+        setHasBudget(false)
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    :
+    axios.post('http://localhost:3010/display-guest',
       {
         database: db_name,
         username: username
       }
     )
     .then((res) => {
+      // console.log('display-guest');
+      // console.log(res.data[0]);
       if (res.data !== '') {
-        createChart(res.data[0]);
         setHasBudget(true);
         setDatabase(db_name);
-      } else {
-        setHasBudget(false);
+        createChart(res.data[0]);
       }
+    })
+    .catch((err) => {
+      console.log(err);
     });
   };
   
@@ -54,7 +80,7 @@ function DoughnutChart() {
   if (hasBudget) {
     return (
       <div className="chart-container">
-          <canvas id="myChart"/>
+          <canvas id="myDonutChart"/>
       </div>
     )
   }

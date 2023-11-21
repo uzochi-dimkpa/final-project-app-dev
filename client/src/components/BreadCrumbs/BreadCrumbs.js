@@ -16,6 +16,7 @@ function BreadCrumbs() {
     window.localStorage.setItem('loggedIn', false);
     window.localStorage.setItem('username', '');
     window.localStorage.removeItem("token");
+    window.localStorage.removeItem("expiresIn");
     setLoggedIn(false);
     setUsername('');
     document.getElementById('token-popup').style.display = 'none';

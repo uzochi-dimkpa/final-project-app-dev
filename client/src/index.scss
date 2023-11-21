@@ -342,11 +342,17 @@ input.icon.pw:focus {
   background-color: rgb(154, 154, 154);
 }
 
+// Chart container
 .chart-container {
   display: inline-block;
   margin: 0 auto;
   height: 40vw;
   width: 40vw;
+}
+
+// Chart container bar
+.bar {
+  height: 20vh
 }
 
 /// COLORS:

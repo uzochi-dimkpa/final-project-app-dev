@@ -54,6 +54,28 @@ html {
   scroll-behavior: smooth;
 }
 /**/
+
+// D3Chart SCSS
+/*
+svg {
+	// width: 100%;
+	// height: 100%;
+  left: 10vw;
+  width: 80vw;
+	height: 70vh;
+}
+
+path.slice{
+	stroke-width:2px;
+}
+
+polyline {
+	opacity: .3;
+	stroke: black;
+	stroke-width: 2px;
+	fill: none;
+}
+/**/
  
 //  Sticky breadcrumbs menu
 .sticky-breadcrumbs-menu {
@@ -63,11 +85,17 @@ html {
 
 // Token popup
 .token-popup {
-  position: sticky;
-  top: 0px;
+  position: fixed;
+  top: 20vh;
+  left: 25vw;
+  width: 50vw;
   padding: 20px;
   background-color: #ffac2c;
-  color: white;
+  border-color: black;
+  border-radius: 10px;
+  border-width: 5px;
+  border-style: solid;
+  color: black;
   z-index: 1000;
 }
 

@@ -42,7 +42,7 @@ function SignupPage(props) {
 
     axios.post('http://localhost:3010/signup', userInfo)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
 
       (res.data.result && res.data.result !== 'USER_ALREADY_EXISTS') ? navigate('/') :
         (res.data.result === 'USER_ALREADY_EXISTS') ? alert('This user already exists! Pleas try again with a different username') :
@@ -52,6 +52,7 @@ function SignupPage(props) {
         window.localStorage.setItem("loggedIn", res.data.result);
         window.localStorage.setItem("username", userInfo.username);
         window.localStorage.setItem("token", res.data.token);
+        window.localStorage.setItem('expiresIn', res.data.expiresIn);
         setLoggedIn(res.data.result);
         setUsername(userInfo.username);
         window.location.reload();

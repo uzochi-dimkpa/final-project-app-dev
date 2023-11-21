@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { SessionContext } from '../../contexts/SessionContext';
 
@@ -6,56 +6,20 @@ import '../../index.scss';
 
 function Menu() {
   const { loggedIn, setLoggedIn, setUsername } = useContext(SessionContext);
-	const token = window.localStorage.getItem("token");
-
+  
   // Navigate
   const navigate = useNavigate();
 
-  // Token verification
-  useEffect(() => {
-    (loggedIn && token) &&
-    setTimeout(
-      () => {
-        document.getElementById('token-popup').style.display = 'block';
-      },
-      40000
-    );
-  }, [loggedIn, token]);
-
-  let logoutTimeout
-  
-  if (loggedIn && token) {
-    logoutTimeout = setTimeout(
-      () => {
-        document.getElementById('token-popup').style.display = 'block';
-        logout();
-      },
-      60000
-    );
-  }
-
-  // Hide Popup
-	const hidePopup = () => {
-		document.getElementById('token-popup').style.display = 'none';
-    window.location.reload();
-	}
-
-  // const hidePopupLogout = () => {
-  //   hidePopup();
-  //   clearTimeout(logoutTimeout);
-  // }
-
-	// Logout
+  // Logout
   const logout = () => {
     console.log('Logout!');
     window.localStorage.setItem('loggedIn', false);
     window.localStorage.setItem('username', '');
     window.localStorage.removeItem("token");
+    window.location.removeItem('expiresIn');
     setLoggedIn(false);
     setUsername('');
     navigate('/');
-    hidePopup();
-    clearTimeout(logoutTimeout);
   }
 
   // Scroll to view About page section 
@@ -96,12 +60,6 @@ function Menu() {
           <li><Link to="/contact">Contact</Link></li>
         </ul>
       </div>
-      <div id='token-popup' className='center token-popup' style={{"display": "none"}}>
-				<h1 style={{"color": "black"}}>WARNING!</h1>
-				<h2 style={{"color": "black"}}>Your session is about to expire. Would you like to refresh your session?</h2>
-				<button onClick={hidePopup} className='token-button button'>Yes</button>
-				<button onClick={logout} className='token-button button' style={{"marginLeft": "40px"}}>No</button>
-			</div>
       </>
   );
 }

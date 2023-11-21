@@ -1,6 +1,6 @@
 import axios from 'axios';
 import * as d3 from 'd3';
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { SessionContext } from '../contexts/SessionContext';
 import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext';
 
@@ -9,9 +9,10 @@ function D3Chart() {
   const { database } = useContext(BudgetDisplayContext);
   
   // console.log(username, database);
-  
-  function getData() {
-    axios.post('http://localhost:3010/display',
+  /*
+  // function getData() {
+    useEffect(() => {
+    axios.post('http://localhost:3010/display-guest',
       {
         database: database,
         username: username
@@ -25,7 +26,6 @@ function D3Chart() {
 
         // generateChart();
 
-      /**/
         var svg = d3.select("figure#d3-donut-container")
         .append("svg")
         .append("g")
@@ -40,18 +40,22 @@ function D3Chart() {
         var width = 960,
             height = 450,
             radius = Math.min(width, height) / 2;
+
+        // var width = 540,
+        //     height = 150,
+        //     radius = Math.min(width, height) / 2;
     
-        var pie = d3.pie()
+        var pie = d3.layout.pie()
             .sort(null)
             .value(function(d) {
                 return d.value;
             });
     
-        var arc = d3.arc()
+        var arc = d3.svg.arc()
             .outerRadius(radius * 0.8)
             .innerRadius(radius * 0.4);
     
-        var outerArc = d3.arc()
+        var outerArc = d3.svg.arc()
             .innerRadius(radius * 0.9)
             .outerRadius(radius * 0.9);
     
@@ -59,7 +63,7 @@ function D3Chart() {
     
         var key = function(d){ return d.data.label; };
         
-        var color = d3.scaleOrdinal()
+        var color = d3.scale.ordinal()
         .domain(res.data[1])
         .range(res.data[2]);
     
@@ -79,7 +83,7 @@ function D3Chart() {
                 return { label: label, value: Math.random() }
             });
         }
-        // --- change(randomData());
+        // change(randomData());
     
         d3.select(".randomize")
             .on("click", function(){
@@ -183,23 +187,27 @@ function D3Chart() {
             polyline.exit()
                 .remove();
         };
-      /**/
     })
     .catch((err) => {
       console.log(err);
     });
-
-    // function generateChart() {
-    //   console.log(d3.pie());
-    //   console.log(d3.arc());
-    //   console.log(d3.scaleOrdinal());
-    // }
-  };
+  }, []);
+  // }; getData();
+  /**/
   
-  getData();
+
+// function generateChart() {
+//   console.log(d3.pie());
+//   console.log(d3.arc());
+//   console.log(d3.scaleOrdinal());
+// }
 
   return (
-    <figure id="d3-donut-container"/>
+    <>
+      {/* <button className="randomize">randomize</button>
+      <button className="reset">reset</button> */}
+      <figure id="d3-donut-container"/>
+    </>
   );
 }
 

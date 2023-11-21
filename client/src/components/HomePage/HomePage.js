@@ -5,6 +5,7 @@ import { BudgetDisplayContext } from '../../contexts/BudgetDisplayContext';
 import AddBudgetData from '../AddBudgetData/AddBudgetData';
 import DonutChart from '../../charts/DonutChart';
 import D3Chart from '../../charts/D3Chart';
+import BarChart from '../../charts/BarChart';
 
 
 function HomePage() {
@@ -35,7 +36,10 @@ function HomePage() {
 										to get a feel for the app for yourself!
 									</p>
 									<DonutChart/>
-									<D3Chart/>
+									<br/>
+									<BarChart/>
+									<br/>
+									{/* <D3Chart/> */}
 								</>
 							: (loggedIn && hasBudget) ?
 								<>
@@ -44,7 +48,11 @@ function HomePage() {
 										We've gathered all of your budget information and displayed it for you below. 
 									</p>
 									<DonutChart/>
-									<D3Chart/>
+									<br/>
+									<BarChart/>
+									<br/>
+									{/* <D3Chart/> */}
+									{/* <h2>Enter some data to get started...</h2> */}
 									<AddBudgetData/>
 								</>
 							:
@@ -58,7 +66,10 @@ function HomePage() {
 									</p>
 									<br/>
 									<DonutChart/>
-									<D3Chart/>
+									<br/>
+									<BarChart/>
+									<br/>
+									{/* <D3Chart/> */}
 									{/* <h2>Enter some data to get started...</h2> */}
 									<AddBudgetData/>
 								</>

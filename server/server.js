@@ -13,9 +13,27 @@ const saltRounds = 8;
 const secretKey = 'The secret key';
 const jwtMW = exjwt({
   secret: secretKey,
-  algorithms: ['HS256']
+  algorithms: ['HS256'],
+  onExpired: async (req, res) => {
+    console.log('Token is expired!');
+  }
 });
 const expiresIn = 1000 * 60 * 1; // 1 minute
+// const expiresIn = 1000 * 2; // 2 seconds
+const months = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+]
 
 
 // Encrypt password (sync)
@@ -173,8 +191,8 @@ app.post('/signup', (req, res) => {
       .then((data) => {
         console.log('Signing up user...');
         let result = true;
-        const token = jwt.sign({ username: username }, secretKey, { expiresIn: expiresIn });
-        (data) ? res.json({result, token}) : (result = false, res.json(result));
+        const token = jwt.sign({ username: username, password: hash }, secretKey, { expiresIn: expiresIn });
+        (data) ? res.json({result, token, expiresIn}) : (result = false, res.json(result));
         res.end();
       })
       .catch((err) => {
@@ -212,8 +230,8 @@ app.post('/login', (req, res) => {
   .then((data) => {
     (data[0]) ?
       bcrypt.compare(password, data[0].password, (err, result) => {
-        const token = jwt.sign({ username: username }, secretKey, { expiresIn: expiresIn });
-        res.json({result, token});
+        const token = jwt.sign({ username: username, password: data[0].password }, secretKey, { expiresIn: expiresIn });
+        res.json({result, token, expiresIn});
         res.end();
 
         (result == true) ? console.log('Logging in user...') : console.log('Incorrect password\n');
@@ -229,17 +247,122 @@ app.post('/login', (req, res) => {
 /**/
 
 
-// Display budget data
+// Display guest budget data
 /**/
-app.post('/display', (req, res) => {
+app.post('/display-guest', (req, res) => {
   let all_data = [];
 
   console.log(`Connecting to \`${req.body.database}\` database...\nOpening "budgets" collection...`);
 
-  let model = (req.body.database == 'personal-budget' && req.body.username != '') ? pbBudgetModel : guestModel;
-  let filter = (req.body.username != '') ? {username: req.body.username} : {};
+  // let model = (req.body.database == 'personal-budget' && req.body.username != '') ? pbBudgetModel : guestModel;
+  // let filter = (req.body.username != '') ? {username: req.body.username} : {};
 
-  model.find(filter, 'username category amount color -_id')
+  guestModel.find({}, 'category amount color -_id')
+  .then((data) => {
+    if (data.length > 0) {
+      console.log('Find successful');
+      console.log(data);
+
+
+      // let username_arr = [];
+      let category_arr = [];
+      let amount_arr = [];
+      let color_arr = [];
+
+
+      for (let i = 0; i < data.length; ++i) {
+        // username_arr.push(data[i].username);
+        category_arr.push(data[i].category);
+        amount_arr.push(data[i].amount);
+        color_arr.push(data[i].color);
+      }
+
+
+      let chartjs_donut_dataset = {
+        datasets: [{
+          data: [],
+          backgroundColor: []
+        }],
+        labels: []
+      };
+      
+      
+      chartjs_donut_dataset.datasets[0].data = amount_arr;
+      chartjs_donut_dataset.datasets[0].backgroundColor = color_arr;
+      chartjs_donut_dataset.labels = category_arr;
+
+
+      let chartjs_bar_dataset = {
+        datasets: [{
+          barThickness: 30,
+          label: `Example budget expenses per category`,
+          data: [],
+          backgroundColor: []
+        }],
+        labels: []
+      };
+
+
+      chartjs_bar_dataset.datasets[0].data = amount_arr;
+      chartjs_bar_dataset.datasets[0].backgroundColor = color_arr;
+      chartjs_bar_dataset.labels = category_arr;
+
+
+      let chartjs_line_dataset = {
+        datasets: [{
+          label: `Category's predicted monthly expenses`,
+          data: [],
+          backgroundColor: []
+        }],
+        labels: [],
+      };
+
+
+      // chartjs_line_dataset.datasets[0].data = amount_arr;
+      // chartjs_line_dataset.datasets[0].backgroundColor = color_arr;
+      // chartjs_line_dataset.labels = category_arr;
+
+
+      all_data.push(chartjs_donut_dataset);
+      all_data.push(chartjs_bar_dataset);
+      all_data.push(chartjs_line_dataset);
+      // all_data.push(category_arr);
+      // all_data.push(color_arr);
+      // all_data.push(amount_arr);
+      // all_data.push(username_arr);
+
+
+      res.json(all_data);
+      res.end();
+    } else {
+      console.log('Find unsuccessful\nEmpty...');
+      res.end();
+    }
+  })
+  .catch((err) => {
+    console.log('Unable to perform find');
+    console.log(err);
+    res.sendStatus(500);
+    res.end();
+  })
+});
+/**/
+
+
+// Display user budget data
+/**/
+app.get('/display-user', jwtMW, (req, res) => {
+  let all_data = [];
+
+  // console.log(req.headers);
+  // console.log(req);
+
+  console.log(`Connecting to \`${req.headers.database}\` database...\nOpening "budgets" collection...`);
+
+  // let model = (req.headers.database == 'personal-budget' && req.headers.username != '') ? pbBudgetModel : guestModel;
+  let filter = (req.headers.username != '') ? {username: req.headers.username} : {};
+
+  pbBudgetModel.find(filter, 'username category amount color -_id')
   .then((data) => {
     if (data.length > 0) {
       console.log('Find successful');
@@ -250,30 +373,70 @@ app.post('/display', (req, res) => {
       let category_arr = [];
       let amount_arr = [];
       let color_arr = [];
-      let chartjs_datasets_json = {
-        datasets: [{
-          data: [],
-          backgroundColor: []
-        }],
-        labels: []
-      };
+
+
       for (let i = 0; i < data.length; ++i) {
         username_arr.push(data[i].username);
         category_arr.push(data[i].category);
         amount_arr.push(data[i].amount);
         color_arr.push(data[i].color);
       }
-      
-      
-      chartjs_datasets_json.datasets[0].data = amount_arr;
-      chartjs_datasets_json.datasets[0].backgroundColor = color_arr;
-      chartjs_datasets_json.labels = category_arr;
 
 
-      all_data.push(chartjs_datasets_json);
-      all_data.push(category_arr);
-      all_data.push(color_arr);
-      all_data.push(amount_arr);
+      let chartjs_donut_dataset = {
+        datasets: [{
+          data: [],
+          backgroundColor: []
+        }],
+        labels: []
+      };
+      
+      
+      chartjs_donut_dataset.datasets[0].data = amount_arr;
+      chartjs_donut_dataset.datasets[0].backgroundColor = color_arr;
+      chartjs_donut_dataset.labels = category_arr;
+
+
+      let chartjs_bar_dataset = {
+        datasets: [{
+          barThickness: 30,
+          label: `${username_arr[0]}'s budget expenses per category`,
+          data: [],
+          legend: {
+            display: false
+          },
+          backgroundColor: []
+        }],
+        labels: []
+      };
+
+
+      chartjs_bar_dataset.datasets[0].data = amount_arr;
+      chartjs_bar_dataset.datasets[0].backgroundColor = color_arr;
+      chartjs_bar_dataset.labels = category_arr;
+
+
+      let chartjs_line_dataset = {
+        datasets: [{
+          label: `Category's predicted monthly expenses`,
+          data: [],
+          backgroundColor: []
+        }],
+        labels: []
+      };
+
+
+      // chartjs_line_dataset.datasets[0].data = amount_arr;
+      // chartjs_line_dataset.datasets[0].backgroundColor = color_arr;
+      // chartjs_line_dataset.labels = category_arr;
+
+
+      all_data.push(chartjs_donut_dataset);
+      all_data.push(chartjs_bar_dataset);
+      all_data.push(chartjs_line_dataset);
+      // all_data.push(category_arr);
+      // all_data.push(color_arr);
+      // all_data.push(amount_arr);
       all_data.push(username_arr);
 
 
