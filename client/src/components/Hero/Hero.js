@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { SessionContext } from '../../contexts/SessionContext';
+import { SessionContext } from '../../contexts/SessionContext.js';
 
 function Hero() {
   const { username } = useContext(SessionContext);

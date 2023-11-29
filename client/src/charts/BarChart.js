@@ -1,21 +1,19 @@
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { Chart as ChartJS, ArcElement } from 'chart.js';
+import { Chart as ChartJS } from 'chart.js';
 import 'chart.js/auto'
-import { SessionContext } from '../contexts/SessionContext';
-import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext';
-
-ChartJS.register(ArcElement);
+import { SessionContext } from '../contexts/SessionContext.js';
+import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext.js';
 
 let myBarChart;
 
 function BarChart() {
-  const { loggedIn, username} = useContext(SessionContext);
-  const { hasBudget, setHasBudget, setDatabase } = useContext(BudgetDisplayContext);
+  const { loggedIn, username } = useContext(SessionContext);
+  const { hasAccount, setHasAccount, setDatabase } = useContext(BudgetDisplayContext);
   const token = window.localStorage.getItem("token");
   
   function createChart(data_source) {
-    if (hasBudget) {
+    if (hasAccount) {
       var ctx = document.getElementById("myBarChart").getContext("2d");
         if (myBarChart) {
           myBarChart.destroy();
@@ -24,6 +22,17 @@ function BarChart() {
         myBarChart = new ChartJS(ctx, {
         type: 'bar',
         data: data_source,
+        options: {
+          plugins: {
+            legend: {
+              display: false
+            },
+            title: {
+              display: true,
+              text: `${data_source.title}`
+            }
+          }
+        }
       });
     }
   };
@@ -32,7 +41,11 @@ function BarChart() {
   	const db_name = (loggedIn && token) ? 'personal-budget' : 'guest-budget';
 
     (loggedIn && token) ?
-    axios.get('http://localhost:3010/display-user',
+    axios.post('http://localhost:3010/show-account',
+    {
+      username: username,
+      database: db_name
+    },
     {
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -42,13 +55,13 @@ function BarChart() {
     })
     .then((res) => {
       // console.log('display-user');
-      // console.log(res.data[0]);
+      // console.log(res.data);
       if (res.data !== '') {
-        setHasBudget(true);
+        setHasAccount(true);
         setDatabase(db_name);
-        createChart(res.data[1]);
+        createChart(res.data);
       } else {
-        setHasBudget(false)
+        setHasAccount(false)
       }
     })
     .catch((err) => {
@@ -65,10 +78,10 @@ function BarChart() {
       // console.log('display-guest');
       // console.log(res.data[0]);
       if (res.data !== '') {
-        setHasBudget(true);
         setDatabase(db_name);
         createChart(res.data[1]);
-      }
+        setHasAccount(true);
+      } 
     })
     .catch((err) => {
       console.log(err);
@@ -77,9 +90,9 @@ function BarChart() {
   
   getBudget();
   
-  if (hasBudget) {
+  if (hasAccount) {
     return (
-      <div className="chart-container">
+      <div className="bar">
           <canvas id="myBarChart"/>
       </div>
     )

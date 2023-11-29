@@ -26,4 +26,7 @@ const pbBudgetSchema = new mongoose.Schema({
 }, {collection: 'budgets'});
 
 
+pbBudgetSchema.index({username: 1, category: 1}, {unique: true});
+
+
 module.exports = mongoose.model('budgets', pbBudgetSchema);

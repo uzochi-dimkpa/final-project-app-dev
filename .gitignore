@@ -23,4 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 
+# other
 *:Zone.Identifier*
+old/
+**/server-scripts.txt
+**/client-scripts.txt

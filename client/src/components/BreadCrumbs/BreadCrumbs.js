@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { SessionContext } from '../../contexts/SessionContext';
+import { SessionContext } from '../../contexts/SessionContext.js';
 
 import '../../App.scss';
 import '../../index.scss';
@@ -21,7 +21,8 @@ function BreadCrumbs() {
     setUsername('');
     document.getElementById('token-popup').style.display = 'none';
     // scrollToBreadCrumbs();
-    window.location.reload();
+    // window.location.reload();
+    window.location.href = '/';
   }
 
   // Scroll to breadcrumbs menu
@@ -60,11 +61,35 @@ function BreadCrumbs() {
     )
   }
 
-  // Scroll to add budget data section
-  const scrollToAdd = () => {
+  // Scroll to change data fields section
+  const scrollToFields = () => {
     setTimeout(
       () => {
-        document.getElementById('add-budget-data').scrollIntoView({
+        document.getElementById('enter-data-fields').scrollIntoView({
+          behavior: 'smooth'
+        });
+      },
+      150
+    );
+  }
+
+  // Scroll to settings section
+  const scrollToSettings = () => {
+    setTimeout(
+      () => {
+        document.getElementById('settings-page-section').scrollIntoView({
+          behavior: 'smooth'
+        });
+      },
+      150
+    );
+  }
+
+  // Scroll to contact section
+  const scrollToContact = () => {
+    setTimeout(
+      () => {
+        document.getElementById('contact-page-section').scrollIntoView({
           behavior: 'smooth'
         });
       },
@@ -83,10 +108,20 @@ function BreadCrumbs() {
           <li><Link to="" onClick={scrollToViewBudget}>View Budget</Link></li>
 
           {loggedIn &&
-          <li><Link to=""  onClick={scrollToAdd}>Add Data</Link></li>}
+          <li><Link to=""  onClick={scrollToFields}>Enter Data</Link></li>}
           
           <li><Link to="/about" onClick={scrollToViewAboutPage}>About</Link></li>
 
+          {/* <!-- This is an SEO Change --> */}
+          <li><Link to="https://www.youtube.com/watch?v=EsOTfVIcdEI" rel="nofollow noopener noreferrer">Learn More</Link></li>
+          {/* <img src={yt_logo} onClick={() => {window.location.href = 'https://www.youtube.com/watch?v=EsOTfVIcdEI'}} rel="nofollow noopener noreferrer" alt="Personal finance 101 lesson" style={{width: "40px", height: "40px"}}/> */}
+          
+          {loggedIn &&
+          <li><Link to="/contact" onClick={scrollToContact}>Contact</Link></li>}
+
+          {loggedIn &&
+          <li><Link to="/settings" onClick={scrollToSettings}>Settings</Link></li>}
+          
           {!loggedIn ?
           <li><Link to="/login">Login</Link></li>
           : <li><Link to="/" onClick={logout}>Logout</Link></li>}
@@ -95,11 +130,6 @@ function BreadCrumbs() {
           <li><Link to="/signup">Signup</Link></li>
           : null}
 
-          {/* <!-- This is an SEO Change --> */}
-          <li><Link to="https://www.youtube.com/watch?v=EsOTfVIcdEI" rel="nofollow noopener noreferrer">Learn More</Link></li>
-          {/* <img src={yt_logo} onClick={() => {window.location.href = 'https://www.youtube.com/watch?v=EsOTfVIcdEI'}} rel="nofollow noopener noreferrer" alt="Personal finance 101 lesson" style={{width: "40px", height: "40px"}}/> */}
-
-          <li><Link to="/contact">Contact</Link></li>
         </ul>
       </div>
       <div id='view-budget-data'/> <div id='view-about-page'/>

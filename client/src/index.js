@@ -2,8 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.scss';
 // import App from './App';
-import SessionHook from './hooks/SessionHook';
-import reportWebVitals from './reportWebVitals';
+import SessionHook from './hooks/SessionHook.js';
+import reportWebVitals from './reportWebVitals.js';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

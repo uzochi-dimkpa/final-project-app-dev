@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useState, useRef, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { SessionContext } from '../../contexts/SessionContext';
+import { SessionContext } from '../../contexts/SessionContext.js';
 
 
 function SignupPage(props) {

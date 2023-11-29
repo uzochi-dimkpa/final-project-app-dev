@@ -1,14 +1,14 @@
 import { useState } from 'react';
-import IdleTimer from '../components/IdleTimer/IdleTimer';
-import { SessionContext } from '../contexts/SessionContext';
-import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext';
-import App from '../App';
+import IdleTimer from '../components/IdleTimer/IdleTimer.js';
+import { SessionContext } from '../contexts/SessionContext.js';
+import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext.js';
+import App from '../App.js';
 
 
 function SessionHook() {
   // console.log('SessionHook is a parent to App!')
 
-  const token = window.localStorage.getItem("token");
+  const token = window.localStorage.getItem('token');
   
   // Session Context
   const [loggedIn, setLoggedIn] = useState(
@@ -27,11 +27,11 @@ function SessionHook() {
 
   (!window.localStorage.getItem('loggedIn')) && window.localStorage.setItem('loggedIn', false);
   (window.localStorage.getItem('username') === null) && window.localStorage.setItem('username', '');
-  // (window.localStorage.setItem('expiresIn') === null) && window.localStorage.setItem('expiresIn', )
 
 
   // Budget Display Context
   const [hasBudget, setHasBudget] = useState(false);
+  const [hasAccount, setHasAccount] = useState(false);
   const [database, setDatabase] = useState(
 		(loggedIn && token && username !== '') ?
 		'personal-budget' : 'guest-budget'
@@ -39,7 +39,9 @@ function SessionHook() {
 
   return (
     <SessionContext.Provider value={{loggedIn, setLoggedIn, username, setUsername, expiresIn, setExpiresIn}}>
-      <BudgetDisplayContext.Provider value={{hasBudget, setHasBudget, database, setDatabase}}>
+      <BudgetDisplayContext.Provider value={{hasBudget, setHasBudget, hasAccount, setHasAccount, database, setDatabase}}>
+        <div id="popup-overlay"/>
+        <div id="popup-overlay-2"/>
         <IdleTimer/>
         <App/>
       </BudgetDisplayContext.Provider>

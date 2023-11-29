@@ -304,6 +304,16 @@ input.icon.pw:focus {
   width: 125px;
 }
 
+.enter-account-button {
+  @include big_button();
+  width: 145px;
+}
+
+.delete-data-button {
+  @include big_button();
+  width: 160px;
+}
+
 // Login button
 .login-button {
   @include big_button();
@@ -318,12 +328,38 @@ input.icon.pw:focus {
   width: 300px;
 }
 
-// Token button
-.token-button {
+// Account delete button
+.delete-account-button {
+  @include big_button();
+  width: 50vw;
+  height: 20vh;
+  font-size: 50px;
+  color: white;
+  background-color: #f44336;
+}
+
+// Account delete button focus
+.delete-account-button:focus {
+  @include border_focus();
+}
+
+// Account delete button hover
+.delete-account-button:hover {
+  @include border_focus();
+  background-color: #f66358;
+}
+
+// Account delete button active
+.delete-account-button:active {
+  background-color: #d4493f;
+}
+
+// Popup button
+.popup-button {
   @include small_button();
   width: 100px;
 }
-.token-button:hover
+// .popup-button:hover
 
 // Button focus
 .button:focus {
@@ -342,17 +378,30 @@ input.icon.pw:focus {
   background-color: rgb(154, 154, 154);
 }
 
-// Chart container
-.chart-container {
+@mixin chart_container_base {
   display: inline-block;
   margin: 0 auto;
-  height: 40vw;
+}
+
+// Chart container
+.chart-container {
+  @include chart_container_base();
   width: 40vw;
+  height: 45vw;
 }
 
 // Chart container bar
 .bar {
-  height: 20vh
+  @include chart_container_base();
+  width: 80vw;
+  height: 45vw;
+}
+
+// Chart container line
+.line {
+  @include chart_container_base();
+  width: 80vw;
+  height: 45vw;
 }
 
 /// COLORS:

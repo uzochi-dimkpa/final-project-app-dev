@@ -12,6 +12,16 @@ const pbUserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true
+	},
+	monthly_income: {
+		type: Number,
+		required: false,
+		unique: false
+	},
+	monthly_expense: {
+		type: Number,
+		required: false,
+		unique: false
 	}
 }, {collection: 'users'});
 
@@ -41,6 +51,9 @@ const pbBudgetSchema = new mongoose.Schema({
 		lowercase: true
 	}
 }, {collection: 'budgets'});
+
+
+pbBudgetSchema.index({username: 1, category: 1}, {unique: true});
 
 
 const { pbDB } = connectToDBs();

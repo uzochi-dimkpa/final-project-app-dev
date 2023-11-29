@@ -11,6 +11,16 @@ const pbUserSchema = new mongoose.Schema({
 		type: String,
 		required: true,
 		unique: true
+	},
+	monthly_income: {
+		type: Number,
+		required: false,
+		unique: false
+	},
+	monthly_expense: {
+		type: Number,
+		required: false,
+		unique: false
 	}
 }, {collection: 'users'});
 

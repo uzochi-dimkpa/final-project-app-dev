@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useContext } from 'react';
 import { Chart as ChartJS, ArcElement } from 'chart.js';
 import 'chart.js/auto'
-import { SessionContext } from '../contexts/SessionContext';
-import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext';
+import { SessionContext } from '../contexts/SessionContext.js';
+import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext.js';
 
 ChartJS.register(ArcElement);
 
@@ -24,6 +24,14 @@ function DoughnutChart() {
         myDoughnutChart = new ChartJS(ctx, {
         type: 'doughnut',
         data: data_source,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: `${data_source.title}`
+            }
+          }
+        }
       });
     }
   };

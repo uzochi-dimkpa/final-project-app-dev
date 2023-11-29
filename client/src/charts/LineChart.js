@@ -1,11 +1,9 @@
 import axios from 'axios';
 import React, { useContext } from 'react';
-import { Chart as ChartJS, ArcElement } from 'chart.js';
+import { Chart as ChartJS } from 'chart.js';
 import 'chart.js/auto'
-import { SessionContext } from '../contexts/SessionContext';
-import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext';
-
-ChartJS.register(ArcElement);
+import { SessionContext } from '../contexts/SessionContext.js';
+import { BudgetDisplayContext } from '../contexts/BudgetDisplayContext.js';
 
 let myLineChart;
 
@@ -24,6 +22,14 @@ function LineChart() {
         myLineChart = new ChartJS(ctx, {
         type: 'line',
         data: data_source,
+        options: {
+          plugins: {
+            title: {
+              display: true,
+              text: `${data_source.title}`
+            }
+          }
+        }
       });
     }
   };
@@ -79,7 +85,7 @@ function LineChart() {
   
   if (hasBudget) {
     return (
-      <div className="chart-container">
+      <div className="line">
           <canvas id="myLineChart"/>
       </div>
     )
