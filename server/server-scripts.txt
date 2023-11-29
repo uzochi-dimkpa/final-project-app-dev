@@ -1,6 +1,0 @@
-"start": node server.js
-"start": "pm2 start server.js --watch --ignore-watch='node_modules' && pm2 logs",
-"stop": "pm2 stop server.js && pm2 delete server.js",
-"restart": "pm2 restart server.js --watch --ignore-watch='node_modules' && pm2 logs",
-
-pm2 logs 0
