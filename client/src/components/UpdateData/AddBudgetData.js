@@ -35,7 +35,7 @@ function AddBudgetData() {
 
   // Add budget data to user's account
   const add = () => {
-    axios.post('http://localhost:3010/add-budget', budgetData, {
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/add-budget`, budgetData, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }

@@ -55,7 +55,7 @@ function DeleteBudgetData() {
   }
 
   const deleteBudget = () => {
-    axios.post('http://localhost:3010/delete-budget', budgetCategory, {
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/delete-budget`, budgetCategory, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }

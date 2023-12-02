@@ -80,11 +80,11 @@ function Menu() {
           <li><Link to="/settings" onClick={scrollToSettings}>Settings</Link></li>}
           
           {!loggedIn ?
-          <li><Link to="/login">Login</Link></li>
-          : <li><Link to="/" onClick={logout}>Logout</Link></li>}
+          <li id="login_menu"><Link to="/login">Login</Link></li>
+          : <li id="logout_menu"><Link to="/" onClick={logout}>Logout</Link></li>}
 
           {!loggedIn ?
-          <li><Link to="/signup">Signup</Link></li>
+          <li id="signup_menu"><Link to="/signup">Signup</Link></li>
           : null}
 
         </ul>

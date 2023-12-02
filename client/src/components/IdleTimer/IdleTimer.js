@@ -1,7 +1,6 @@
-// import axios from "axios";
+import axios from "axios";
 import React, { useContext, useEffect } from "react";
 import { SessionContext } from "../../contexts/SessionContext.js";
-const axios = require('axios');
 
 function IdleTimer() {
   // console.log('IdleTimer!');
@@ -23,7 +22,7 @@ function IdleTimer() {
   // Refresh token
   const tokenRefresh = () => {
     (username && loggedIn && token) &&
-    axios.post('http://localhost:3010/refresh-token', {username}, {
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/refresh-token`, {username}, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

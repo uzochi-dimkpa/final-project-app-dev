@@ -105,29 +105,29 @@ function BreadCrumbs() {
       <div id='breadcrumbs-menu'/>
       <div className="center menu sticky-breadcrumbs-menu">
         <ul>
-          <li><Link to="" onClick={scrollToViewBudget}>View Budget</Link></li>
+          <li id='view_budget_breadcrumbs'><Link to="" onClick={scrollToViewBudget}>View Budget</Link></li>
 
           {loggedIn &&
-          <li><Link to=""  onClick={scrollToFields}>Enter Data</Link></li>}
+          <li id='enter_data_breadcrumbs'><Link to=""  onClick={scrollToFields}>Enter Data</Link></li>}
           
-          <li><Link to="/about" onClick={scrollToViewAboutPage}>About</Link></li>
+          <li id='about_page_breadcrumbs'><Link to="/about" onClick={scrollToViewAboutPage}>About</Link></li>
 
           {/* <!-- This is an SEO Change --> */}
-          <li><Link to="https://www.youtube.com/watch?v=EsOTfVIcdEI" rel="nofollow noopener noreferrer">Learn More</Link></li>
+          <li id='learn_more_breadcrumbs'><Link to="https://www.youtube.com/watch?v=EsOTfVIcdEI" rel="nofollow noopener noreferrer">Learn More</Link></li>
           {/* <img src={yt_logo} onClick={() => {window.location.href = 'https://www.youtube.com/watch?v=EsOTfVIcdEI'}} rel="nofollow noopener noreferrer" alt="Personal finance 101 lesson" style={{width: "40px", height: "40px"}}/> */}
           
           {loggedIn &&
           <li><Link to="/contact" onClick={scrollToContact}>Contact</Link></li>}
 
           {loggedIn &&
-          <li><Link to="/settings" onClick={scrollToSettings}>Settings</Link></li>}
+          <li id='settings_page_breadcrumbs'><Link to="/settings" onClick={scrollToSettings}>Settings</Link></li>}
           
           {!loggedIn ?
           <li><Link to="/login">Login</Link></li>
-          : <li><Link to="/" onClick={logout}>Logout</Link></li>}
+          : <li id="logout_breadcrumbs"><Link to="/" onClick={logout}>Logout</Link></li>}
 
           {!loggedIn ?
-          <li><Link to="/signup">Signup</Link></li>
+          <li id='signup_breadcrumbs'><Link to="/signup">Signup</Link></li>
           : null}
 
         </ul>

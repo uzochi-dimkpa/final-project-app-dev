@@ -33,7 +33,8 @@ function DeleteAccountPopup() {
 		document.getElementById('delete-account-popup').style.display = 'none';
 		// document.getElementById('token-popup').style.display = 'none';
 
-    axios.post('http://localhost:3010/delete-account',
+    // Delete account
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/delete-account`,
     {
       username: username,
       database: database
@@ -58,8 +59,8 @@ function DeleteAccountPopup() {
       <div data-testid="delete-account-popup" id='delete-account-popup' className='delete-account-popup center' style={{"display": "none"}}>
         <h1>DANGER!</h1>
         <h2>You are about to permanently delete your account. This action cannot be undone. Are you sure you want to do this?</h2>
-        <button onClick={deleteAccount} className='popup-button button'>Yes</button>
-        <button onClick={hidePopup} className='popup-button button' style={{"marginLeft": "40px"}}>No</button>
+        <button id="popup_delete_account_yes" onClick={deleteAccount} className='popup-button button'>Yes</button>
+        <button id="popup_delete_account_no" onClick={hidePopup} className='popup-button button' style={{"marginLeft": "40px"}}>No</button>
       </div>
     </>
   )

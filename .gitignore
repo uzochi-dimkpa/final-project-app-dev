@@ -28,3 +28,9 @@ yarn-error.log*
 old/
 **/server-scripts.txt
 **/client-scripts.txt
+
+
+#dotenv
+.env
+.env.test
+.env.local

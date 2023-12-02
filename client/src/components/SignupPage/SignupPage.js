@@ -40,12 +40,12 @@ function SignupPage(props) {
   const signup = () => {
     console.log('Signup!');
 
-    axios.post('http://localhost:3010/signup', userInfo)
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/signup`, userInfo)
     .then((res) => {
       // console.log(res);
 
-      (res.data.result && res.data.result !== 'USER_ALREADY_EXISTS') ? navigate('/') :
-        (res.data.result === 'USER_ALREADY_EXISTS') ? alert('This user already exists! Pleas try again with a different username') :
+      (res.data.result === true && res.data.result !== 'USER_ALREADY_EXISTS') ? navigate('/') :
+        (res.data === 'USER_ALREADY_EXISTS') ? alert('This user already exists! Pleas try again with a different username') :
         alert('Bad signup attempt. Please try again...');
       
       if (res.data.result === true && res.data.token) {
@@ -100,15 +100,15 @@ function SignupPage(props) {
       <br/>
       <label>
         <h2>Username:</h2>
-        <input alt='login username' className='icon login_signup un' onChange={handleChange} autoComplete='off' name='username' type='text' placeholder='Enter your username here...' autoFocus required/>
+        <input id="input_signup_un" alt='login username' className='icon login_signup un' onChange={handleChange} autoComplete='off' name='username' type='text' placeholder='Enter your username here...' autoFocus required/>
       </label>
       <br/><br/>
       <label>
         <h2>Password:</h2>
-        <input alt='login password' className='icon login_signup pw'  onKeyUp={handleEnterPress} onChange={handleChange} autoComplete='off' name='password' type='password' placeholder='Enter your password here...' required/>
+        <input id="input_signup_pw" alt='login password' className='icon login_signup pw'  onKeyUp={handleEnterPress} onChange={handleChange} autoComplete='off' name='password' type='password' placeholder='Enter your password here...' required/>
       </label>
       <br/><br/><br/>
-      <button className='signup-button button' type='submit' onClick={(userInfo.username && userInfo.password) ? signup : badSignup}>Create account</button>
+      <button id="signup_button_submit" className='signup-button button' type='submit' onClick={(userInfo.username && userInfo.password) ? signup : badSignup}>Create account</button>
       <br/><br/><br/>
       <h3>Already have an account with us? <a href='/login' onClick={login}>Login here!</a></h3>
     </div>

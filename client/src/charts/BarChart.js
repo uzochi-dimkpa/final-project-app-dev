@@ -41,7 +41,7 @@ function BarChart() {
   	const db_name = (loggedIn && token) ? 'personal-budget' : 'guest-budget';
 
     (loggedIn && token) ?
-    axios.post('http://localhost:3010/show-account',
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/show-account`,
     {
       username: username,
       database: db_name
@@ -68,7 +68,7 @@ function BarChart() {
       console.log(err);
     })
     :
-    axios.post('http://localhost:3010/display-guest',
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/display-guest`,
       {
         database: db_name,
         username: username

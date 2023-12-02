@@ -769,7 +769,7 @@ app.post('/delete-account', jwtMW, (req, res) => {
   })
   .catch((err) => {
     console.log('An error has occurred: ', err);
-    res.sendStatus(500);
+    // res.sendStatus(500);
     res.end();
   });
 
@@ -783,7 +783,7 @@ app.post('/delete-account', jwtMW, (req, res) => {
   })
   .catch((err) => {
     console.log('An error has occurred: ', err);
-    res.sendStatus(500);
+    // res.sendStatus(500);
     res.end();
   });
 });

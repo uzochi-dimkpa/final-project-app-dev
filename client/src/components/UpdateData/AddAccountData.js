@@ -35,7 +35,7 @@ function AddAccountData() {
     if (accountData.monthly_income === '') accountData.monthly_income = undefined;
     if (accountData.monthly_expense === '') accountData.monthly_expense = undefined;
     
-    axios.post('http://localhost:3010/add-account', accountData, {
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/add-account`, accountData, {
       headers: {
         'Authorization': `Bearer ${token}`,
       }

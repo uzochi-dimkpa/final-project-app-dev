@@ -25,7 +25,7 @@ function SettingsPage() {
         <BarChart/>
         <AddAccountData/>
         <div style={{"marginTop": "96px"}}/>
-        <button className="delete-account-button" onClick={showPopup}>Delete Account</button>
+        <button id="delete_account_button" className="delete-account-button" onClick={showPopup}>Delete Account</button>
         <DeleteAccountPopup/>
       </div>
     </>
