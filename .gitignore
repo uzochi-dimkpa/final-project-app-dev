@@ -28,6 +28,7 @@ yarn-error.log*
 old/
 **/server-scripts.txt
 **/client-scripts.txt
+**/coverage
 
 
 #dotenv
