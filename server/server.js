@@ -12,7 +12,7 @@ const date = new Date();
 const month = date.getMonth();
 const port = 3010;
 const saltRounds = 8;
-const secretKey = 'The secret key';
+const secretKey = process.env.ACCESS_TOKEN_SECRET;
 const jwtMW = exjwt({
   secret: secretKey,
   algorithms: ['HS256'],
@@ -764,7 +764,7 @@ app.post('/delete-account', jwtMW, (req, res) => {
   .then((data) => {
     console.log(data);
     data.deletedCount != 0 ? console.log('Data deletion successful') : console.log('Data deletion failed');
-    data.deletedCount != 0 ? res.json(true) : res.json(false);
+    // data.deletedCount != 0 ? res.json(true) : res.json(false);
     res.end();
   })
   .catch((err) => {

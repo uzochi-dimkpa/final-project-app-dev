@@ -55,7 +55,7 @@ function LoginPage() {
         window.localStorage.setItem('expiresIn', res.data.expiresIn);
         setLoggedIn(res.data.result);
         setUsername(userInfo.username);
-        window.location.reload();
+        // window.location.reload();
       }
     })
     .catch((err) => {

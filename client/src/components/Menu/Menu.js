@@ -77,7 +77,7 @@ function Menu() {
           <li><Link to="/contact" onClick={scrollToContact}>Contact</Link></li>}
 
           {loggedIn &&
-          <li><Link to="/settings" onClick={scrollToSettings}>Settings</Link></li>}
+          <li id="settings_page_menu"><Link to="/settings" onClick={scrollToSettings}>Settings</Link></li>}
           
           {!loggedIn ?
           <li id="login_menu"><Link to="/login">Login</Link></li>

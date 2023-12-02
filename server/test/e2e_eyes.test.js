@@ -622,8 +622,9 @@ function delay(time) {
 
 
 describe('LoginPage e2e test', () => {
+  // let browser;
   // beforeEach(async () => {
-  //   const browser = await puppeteer.launch({
+  //   browser = await puppeteer.launch({
   //     headless: false,
   //     slowMo: 80,
   //     args: ['--window-size=1920,1080']
@@ -661,7 +662,7 @@ describe('LoginPage e2e test', () => {
       headless: false,
       slowMo: 80,
       args: ['--window-size=1920,1080']
-    }); 
+    });
 
     const page = await browser.newPage();
 
@@ -699,7 +700,7 @@ describe('LoginPage e2e test', () => {
       headless: false,
       slowMo: 80,
       args: ['--window-size=1920,1080']
-    }); 
+    });
 
     const page = await browser.newPage();
 
@@ -713,8 +714,11 @@ describe('LoginPage e2e test', () => {
     await page.click('input#input_signup_pw');
     await page.type('input#input_signup_pw', 'testPassword');
 
+    // await page.waitForSelector('#signup_button_submit');
+    
     await page.click('button#signup_button_submit');
 
+    await page.waitForSelector('#settings_page_menu');
     await page.waitForSelector('#settings_page_breadcrumbs');
 
     await page.click('li#settings_page_breadcrumbs');
@@ -722,6 +726,8 @@ describe('LoginPage e2e test', () => {
     await page.waitForSelector('#delete_account_button');
 
     await page.click('button#delete_account_button');
+
+    await page.waitForSelector('#popup_delete_account_yes');
 
     await page.click('button#popup_delete_account_yes');
 
