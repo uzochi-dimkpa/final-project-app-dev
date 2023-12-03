@@ -47,16 +47,16 @@ function Menu() {
   }
 
   // Scroll to contact section
-  const scrollToContact = () => {
-    setTimeout(
-      () => {
-        document.getElementById('contact-page-section').scrollIntoView({
-          behavior: 'smooth'
-        });
-      },
-      150
-    );
-  }
+  // const scrollToContact = () => {
+  //   setTimeout(
+  //     () => {
+  //       document.getElementById('contact-page-section').scrollIntoView({
+  //         behavior: 'smooth'
+  //       });
+  //     },
+  //     150
+  //   );
+  // }
   
   return (
     // <div>
@@ -73,8 +73,8 @@ function Menu() {
           <li><Link to="https://www.youtube.com/watch?v=EsOTfVIcdEI" rel="nofollow noopener noreferrer">Learn More</Link></li>
           {/* <img src={yt_logo} onClick={() => {window.location.href = 'https://www.youtube.com/watch?v=EsOTfVIcdEI'}} rel="nofollow noopener noreferrer" alt="Personal finance 101 lesson" style={{width: "40px", height: "40px"}}/> */}
           
-          {loggedIn &&
-          <li><Link to="/contact" onClick={scrollToContact}>Contact</Link></li>}
+          {/* {loggedIn &&
+          <li><Link to="/contact" onClick={scrollToContact}>Contact</Link></li>} */}
 
           {loggedIn &&
           <li id="settings_page_menu"><Link to="/settings" onClick={scrollToSettings}>Settings</Link></li>}
