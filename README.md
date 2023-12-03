@@ -19,9 +19,12 @@
 
 To use the website on the remote server:
 
-1. Click on the <a href='https://dimkpatm-budgeting-api.onrender.com/'>backend</a> link
-2. Wait until you see the following on your browser page: `"Server is good to go!"`
-3. Click on the <a href='https://dimkpatm-budgeting.onrender.com/'>frontend</a> link
+1. Click on the <a href='https://dimkpatm-budgeting-api.onrender.com/'>backend link</a>
+2. Wait until you see the following on your browser page: 
+
+        "Server is good to go!"
+
+3. Click on the <a href='https://dimkpatm-budgeting.onrender.com/'>frontend link</a>
 4. Use the app!
 
 
@@ -36,7 +39,7 @@ To clone the repo locally:
 4. `cd ../client`
 5. `npm install`
 
-### NOTE:
+### **NOTE:**
 **You will need to make your own `.env` files in both the `server/` and `client/` directories with the proper fields in them in order to run the application:**
 
 1. `cd ../server`
@@ -56,7 +59,7 @@ To clone the repo locally:
       - Remote frontend URL or localhost URL with port of your choice
 4. `cd ../client`
 5. Create a new file names `.env`
-6. Populate the `.env` file with the following fields
+6. Populate the `.env` file with the following fields:
     - `REACT_APP_BACKEND_URL`
       - Remote backend URL or localhost URL with port of your choice
 
@@ -70,8 +73,17 @@ To run the application locally in the development environment, **after having cl
 
 To run the application locally and view the console logs, **after having cloned the repo and installed the necessary packages**:
 1. Open two terminals within the root of the same project working directory
-2. In the first terminal: `cd server && npm run dev`
-3. In the second terminal: `cd server && pm2 logs 0`
+2. In the first terminal:
+    
+    a. `cd server`
+    
+    b. `npm run dev`
+
+3. In the second terminal:
+
+    a. `cd server`
+    
+    b. `pm2 logs 0`
 
 
 
@@ -87,5 +99,5 @@ To run the application tests:
 1. Open a new terminal in the root of the repo
 2. `cd client`
 3. `npm test`
-### Results
+### Results:
 View the output logged to each console for the results of the tests
