@@ -34,6 +34,7 @@ function LoginPage() {
   // Signup
   const signup = () => {
     console.log('Signup!');
+    navigate('/signup');
   }
 
   // Login
@@ -111,7 +112,7 @@ function LoginPage() {
       <button id='login_button_submit' className='login-button button' type='submit' onClick={(userInfo.username && userInfo.password) ? login : badLogin}>Login</button>
       {/* <button className='login-button button' onClick={LoginHook(userInfo)}>BUTTON</button> */}
       <br/><br/><br/>
-      <h3>Don't have an account with us? <a href='/signup' onClick={signup}>Sign up here!</a></h3>
+      <h3>Don't have an account with us? <div className='href-link' onClick={signup}>Sign up here!</div></h3>
     </div>
   );
 }

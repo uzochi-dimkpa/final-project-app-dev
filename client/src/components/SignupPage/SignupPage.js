@@ -34,6 +34,7 @@ function SignupPage(props) {
   // Login
   const login = () => {
     console.log('Login!');
+    navigate('/login');
   }
 
   // Signup
@@ -110,7 +111,7 @@ function SignupPage(props) {
       <br/><br/><br/>
       <button id="signup_button_submit" className='signup-button button' type='submit' onClick={(userInfo.username && userInfo.password) ? signup : badSignup}>Create account</button>
       <br/><br/><br/>
-      <h3>Already have an account with us? <a href='/login' onClick={login}>Login here!</a></h3>
+      <h3>Already have an account with us? <div className='href-link' onClick={login}>Login here!</div></h3>
     </div>
   )
 }

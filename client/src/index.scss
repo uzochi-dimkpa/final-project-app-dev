@@ -314,6 +314,39 @@ input.icon.pw:focus {
   width: 160px;
 }
 
+// href button style
+@mixin href-style {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.href-link {
+  @include href-style();
+  color: blue;
+}
+
+// .href-link:focus {
+//   @include href-style();
+//   color: blue;
+//   border-color: black;
+//   border-width: 2px;
+// }
+
+.href-link:visited {
+  @include href-style();
+  color: purple;
+}
+
+.href-link:hover {
+  @include href-style();
+  color: cornflowerblue;
+}
+
+.href-link:active {
+  @include href-style();
+  color: darkblue;
+}
+
 // Login button
 .login-button {
   @include big_button();
