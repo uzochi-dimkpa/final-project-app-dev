@@ -14,7 +14,7 @@ import AboutPage from './components/AboutPage/AboutPage.js';
 import LoginPage from './components/LoginPage/LoginPage.js';
 import SignupPage from './components/SignupPage/SignupPage.js';
 import BreadCrumbs from './components/BreadCrumbs/BreadCrumbs.js';
-import ContactPage from './components/ContactPage/ContactPage.js';
+// import ContactPage from './components/ContactPage/ContactPage.js';
 import SettingsPage from './components/SettingsPage/SettingsPage.js';
 
 import { SessionContext } from './contexts/SessionContext.js';
@@ -62,8 +62,8 @@ function App() {
         {loggedIn && username !== '' &&
         <Route path="/settings" element={<SettingsPage/>} exact/>}
 
-        {loggedIn && username !== '' &&
-        <Route path="/contact" element={<ContactPage/>} exact/>}
+        {/* {loggedIn && username !== '' &&
+        <Route path="/contact" element={<ContactPage/>} exact/>} */}
         
         <Route path="/" element={<HomePage/>} exact/>
       </Routes>
