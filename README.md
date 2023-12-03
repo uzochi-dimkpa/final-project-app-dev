@@ -1,4 +1,4 @@
-# Dimkpa<sup>TM</sup> Budgeting
+# Dimkpa<sup>TM</sup> Budgeting App
 
 
 
@@ -35,6 +35,30 @@ To clone the repo locally:
 3. `npm install`
 4. `cd ../client`
 5. `npm install`
+
+### NOTE:
+**You will need to make your own `.env` files in both the `server/` and `client/` directories with the proper fields in them in order to run the application:**
+
+1. `cd ../server`
+2. Create a new file named `.env`
+3. Populate the `.env` file with the following fields:
+    - `APPLITOOLS_API_KEY`
+      - Your Applitools API key
+    - `HEADLESS`
+      - Boolean; `true` or `false`
+    - `MONGO_DB_REMOTE_URL`
+      - Your MongoDB database URL
+    - `NODE_VERSION`
+      - 18.18.0
+    - `ACCESS_TOKEN_SECRET`
+      - String; can be any value of your choice
+    - `FRONTEND_URL`
+      - Remote frontend URL or localhost URL with port of your choice
+4. `cd ../client`
+5. Create a new file names `.env`
+6. Populate the `.env` file with the following fields
+    - `REACT_APP_BACKEND_URL`
+      - Remote backend URL or localhost URL with port of your choice
 
 
 
