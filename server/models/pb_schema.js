@@ -53,6 +53,7 @@ const pbBudgetSchema = new mongoose.Schema({
 }, {collection: 'budgets'});
 
 
+// Sets secondary index in pbBudgetSchema MongoDB schema
 pbBudgetSchema.index({username: 1, category: 1}, {unique: true});
 
 
